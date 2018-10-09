@@ -13,6 +13,12 @@
 
         {% endif %}
         <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaksbr }}</p>
+        <p>{{ post.goals|linebreaksbr }}</p>
+        <p>{{ post.tags|linebreaksbr }}</p>
+        <p>{{ post.requirements|linebreaksbr }}</p>
+        <p>{{ post.stage|linebreaksbr }}</p>
+        <p>{{ post.pre_conditions|linebreaksbr }}</p>
+        <p>{{ post.variants|linebreaksbr }}</p>
+        <p>{{ post.steps|linebreaksbr }}</p>
     </div>
 {% endblock %}
