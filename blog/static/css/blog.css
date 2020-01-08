@@ -1,5 +1,5 @@
 .page-header {
-    background-color: #8a5c3d;
+    background-color: #bfc6ff;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
@@ -17,6 +17,7 @@
 h1, h2, h3, h4 {
     font-family: 'Helvetica Neuer';
 }
+
 
 .date {
     color: #828282;
@@ -37,10 +38,22 @@ h1, h2, h3, h4 {
     margin-right: 20px;
 }
 
-.post {
-    margin-bottom: 30px;
-}
-
 .post h1 a, .post h1 a:visited {
     color: #000000;
+}
+
+.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: initial;
+}
+
+.post {
+    border-radius: 5px;
+    background-color: #e8e2dc;
+}
+a {
+  color: black;
 }

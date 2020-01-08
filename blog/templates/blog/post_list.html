@@ -1,11 +1,13 @@
 {% extends 'blog/base.html' %}
+{% load static %}
 {% block content %}
     {% for post in posts %}
-        <div class="post">
-            <div class="date">
-                {{ Post.published_date }}
-            </div>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+        <div class="post"> 
+        	<p>
+        	<a href="{% url 'post_detail' pk=post.pk %}">
+        	[Test-case-{{ post.pk }}] {{ post.title }}
+        	</a>
+        	</p>
         </div>
     {% endfor %}
-{% endblock %}
+{% endblock %}§

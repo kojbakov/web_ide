@@ -1,10 +1,10 @@
 from django import forms
 
-from .models import Post
+from .models import NewTestCase
 
-class PostForm(forms.ModelForm):
+class TestCaseForm(forms.ModelForm):
 
     class Meta:
-        model = Post
-        #fields = ('title', 'text', 'ololo', 'tags')
-        fields = ('title', 'goals', 'tags', 'requirements', 'stage', 'pre_conditions', 'variants', 'steps',)
+        model = NewTestCase
+        # fields = ('title', 'goals', 'tags', 'requirements', 'stage', 'pre_conditions', 'variants', 'steps',)
+        fields = ('title', 'requirements', 'tags', 'stage', 'goals', 'pre_conditions')
