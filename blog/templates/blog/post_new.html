@@ -1,10 +1,21 @@
 {% extends 'blog/base.html' %}
-
 {% block content %}
-    <h1>New test-case</h1>
+    
+    
     <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
-    <button type="button">Add step</button>
+        <h1>New test-case</h1>
+        {{ form.as_p }}
     </form>
+
+  <div id="new_chq"></div>
+  <input type="hidden" value="0" id="total_chq">
+  <br>
+  <button class="save btn btn-default" onclick="add()">Add step</button>
+  <!--<button class="save btn btn-default" onclick="remove()">Remove</button> -->
+
+  
+
+
+
 {% endblock %}

@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+        <script src="{% static 'js/add_remove.js' %}"></script>  
 
 
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
@@ -18,11 +20,12 @@
             <h1><a href="/">Test Base</a></h1>
             {% if user.is_authenticated and request.get_full_path == "/"%}
                 <a href="{% url 'new_test_case' %}" class="btn btn-default">Add new test-case +</a>
+                <a href="/admin/" class="btn btn-default">Admin page</a>
             {% endif %}
         </div>
         <div class="content container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-20">
                     {% block content %}
                     {% endblock %}
                 </div>
