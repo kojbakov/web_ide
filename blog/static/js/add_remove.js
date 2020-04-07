@@ -1,13 +1,14 @@
+
 function add() {
   var new_chq_no = parseInt($('#total_chq').val()) + 1;
   var new_input = "\
-    <div id='new_step_"+new_chq_no+"'>\
+    <div id='id_step_"+new_chq_no+"'>\
       <br>\
-      <textarea cols='80' rows='5' placeholder='Step' value='"+new_chq_no+"'></textarea>\
-      <textarea cols='80' rows='5' placeholder='Result' value='"+new_chq_no+"'></textarea>\
+      <tr><th><label for='id_step_'"+new_chq_no+">Step:</label></th><td><textarea name='step_'"+new_chq_no+" cols='10' rows='1' required id='id_step'>Step text</textarea></td></tr>\
+      <tr><th><label for='id_result_'"+new_chq_no+">Result:</label></th><td><textarea name='result_'"+new_chq_no+" cols='10' rows='1' required id='id_result'>Result text</textarea></td></tr>\
       <button class='save btn btn-default'>v</button>\
       <button class='save btn btn-default'>^</button>\
-      <button id='new_step_"+new_chq_no+"' class='save btn btn-default' onclick='remove(this.id)'>X" + new_chq_no +"</button>\
+      <button id='id_step_"+new_chq_no+"' class='save btn btn-default' onclick='remove(this.id)'>X" + new_chq_no +"</button>\
     </div>"
   //<div id='indent'><button class='save btn btn-default' onclick='remove()'>Remove</button></div>"
   
@@ -25,3 +26,7 @@ function remove(clicked_id) {
     $('#total_chq').val(last_chq_no - 1);
   }
 }
+
+
+
+//<textarea cols='80' rows='5' placeholder='Step' value='"+new_chq_no+"'></textarea>

@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{tc_form.as_p}}
+    <input type="" name="Step">
+    <input type="" name="Result">
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+
+
+
+{% endblock %}

@@ -7,11 +7,23 @@
             </div>
         {% endif %}
         {% if user.is_authenticated %}
-        	<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-        	<a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
+            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
 
         {% endif %}
         <h1>{{ post.title }}</h1>
+        <table border="1" width="100%" cellpadding="20">
+        <tr>
+            <th> Steps </th>
+            <th> Results </th>  
+        </tr>
+        {% for item in steps %}
+           <tr>
+            <td>{{ item.step }}</td>
+            <td>{{ item.result }}</td>
+           </tr>
+        {% endfor %}
+        <!--
         <p>{{ post.goals|linebreaksbr }}</p>
         <p>{{ post.tags|linebreaksbr }}</p>
         <p>{{ post.requirements|linebreaksbr }}</p>
@@ -19,5 +31,6 @@
         <p>{{ post.pre_conditions|linebreaksbr }}</p>
         <p>{{ post.variants|linebreaksbr }}</p>
         <p>{{ post.steps|linebreaksbr }}</p>
+        -->
     </div>
 {% endblock %}

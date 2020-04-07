@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<script type="text/javascript">
+	function remove(clicked_id) {
+		//form_count = Number($("[name=extra_field_count]").val());
+		var form_count = Number($("[name=extra_field_count]").val());
+		console.log(clicked_id)
+	    $('#'+clicked_id).remove();
+	    form_count = form_count - 1;
+	    console.log(form_count)
+	    $("[name=extra_field_count]").val(form_count);
+		}
+	// get extra form count so we know what index to use for the next item.
+	function add_step(form_count){
+		//form_count = Number($("[name=extra_field_count]").val());
+		var form_count = Number($("[name=extra_field_count]").val());
+	    form_count ++;
+	    console.log(form_count)
+	    let element = $('<div><input type="text"/><button class="btn btn-danger" id="extra_field_'+form_count+'" onclick="remove(this.id)">Delete step</button><br></div>');
+	    element.attr('name', 'extra_field_' + form_count);
+	    element.attr('id', 'extra_field_' + form_count);
+	    $("#forms").append(element);
+	    // build element and append it to our forms container
+	    $("[name=extra_field_count]").val(form_count);
+		}
+</script>
+
+<form method="POST"> {% csrf_token %}
+    <div id="forms">
+        {{ form.as_p }}
+    </div>
+    <button id="add-another" class="btn btn-success" onclick="add_step()">Add step</button>
+    <button type="submit" class="btn btn-submit">Save</button>
+    
+    
+</form>
+{% endblock %}

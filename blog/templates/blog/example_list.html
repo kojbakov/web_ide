@@ -5,7 +5,7 @@
         <div class="post"> 
         	<p>
         	<a href="{% url 'post_detail' pk=post.pk %}">
-        	[Test-case-{{ post.pk }}] | {{ post.author }} | <h3>{{ post.title }}</h3>
+        	[Test-case-{{ post.pk }}] {{ post.title }}
         	</a>
         	<a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
         	</p>
