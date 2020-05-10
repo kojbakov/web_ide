@@ -2,11 +2,24 @@ from django.db import models
 from django.utils import timezone
 
 
+
+class TestCaseTag(models.Model):
+    tag = models.CharField(max_length=1000)
+    #test_case = models.ForeignKey(NewTestCase, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.tag
+
+    class Meta:
+        ordering = ['tag']
+
+
 class NewTestCase(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
-    tags = models.CharField(max_length=200)
+    #tags = models.CharField(max_length=200)
+    tags = models.ForeignKey(TestCaseTag, on_delete=models.CASCADE)
     goals = models.TextField()
     requirements = models.TextField()
     TEST_CASE_STAGES = [
@@ -88,15 +101,7 @@ class Steps(models.Model):
     class Meta:
         ordering = ['step','result']
 
-class TestCaseTag(models.Model):
-    tag = models.CharField(max_length=1000)
-    test_case = models.ForeignKey(NewTestCase, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.tag
-
-    class Meta:
-        ordering = ['tag']
 
 
 
