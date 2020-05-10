@@ -4,8 +4,26 @@
     {% for test in tests %}
         <div class="test"> 
         	<p>
+        	<a href="{% url 'test_detail' pk=test.pk %}">
         	[Test-case-{{ test.pk }}] | {{ test.author }} | <h3>{{ test.title }}</h3>
-        	</p>
-        </div>
+        	</a>
+            <div class="tags">
+                {% for tag in tags %}   
+                    {% if tag.test_case.pk == test.pk %}
+                    <form action="/" method="test">
+                        {% csrf_token %}
+                        <div class="tags">
+                            <button type="submit" name="tags" value="{{tag}}" class="btn-link">{{tag}}</button>
+                        </div>
+                    </form>       
+                        
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <br>
+            <br>
+        	<a class="btn btn-default" href="{% url 'test_delete' pk=test.pk %}" onclick="return confirm('Удалить тест-кейс {{test.pk}}?');"><span class="glyphicon glyphicon-trash"></span></a>
+        	<hr>
+       </div>
     {% endfor %}
 {% endblock %}§

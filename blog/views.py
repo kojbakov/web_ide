@@ -21,7 +21,7 @@ from .models import StepsResults
 from .models import Case
 from .models import Steps
 from .forms import TestCase
-from .models import TestCaseTag 
+from .models import Tag 
 import re
 #___
 from django.db.models.functions import Lower
@@ -31,37 +31,38 @@ from django.db.models import Q
 import operator
 
 
-def post_list(request):
-    #loging('o')
-    #loging(request.POST)
-    #loging(request)
-    if request.method == "POST" :
-        #loging(request.POST)
-        if len(request.POST['tags'])>0:
-            req_tags = request.POST['tags'].replace(' ', '')
-            if req_tags.endswith(','):
-                req_tags = req_tags[:-1]
-            req_tags = req_tags.split(',')
-            test_id_set = set(map(lambda tag: tag.test_case_id, TestCaseTag.objects.filter(tag__in = req_tags)))
-            posts = NewTestCase.objects.filter(id__in=test_id_set)
-            tags = TestCaseTag.objects.filter()
-        else:
-            posts = NewTestCase.objects.filter(published_date__lte=timezone.now()).order_by('id')
-            tags = TestCaseTag.objects.filter()
-    else:
-        posts = NewTestCase.objects.filter(published_date__lte=timezone.now()).order_by('id')
-        tags = TestCaseTag.objects.filter()
+def tests_list(request):
+    # if request.method == "POST" :
+    #     if len(request.POST['tags'])>0:
+    #         req_tags = request.POST['tags'].replace(' ', '')
+    #         if req_tags.endswith(','):
+    #             req_tags = req_tags[:-1]
+    #         req_tags = req_tags.split(',')
+    #         test_id_set = set(map(lambda tag: tag.test_case_id, Tag.objects.filter(tag__in = req_tags)))
+    #         posts = NewTestCase.objects.filter(id__in=test_id_set)
+    #         tags = Tag.objects.filter()
+    #     else:
+    #         posts = NewTestCase.objects.filter(published_date__lte=timezone.now()).order_by('id')
+    #         tags = Tag.objects.filter()
+    # else:
+    #     posts = NewTestCase.objects.filter(published_date__lte=timezone.now()).order_by('id')
+    #     tags = Tag.objects.filter()
+    # loging(posts)
+    # tags = Tag.objects.all()
+    # return render(request, 'blog/test_list.html', {'posts' : posts,
+    #                                                 'tags' : tags})
+    tests = NewTestCase.objects.filter(published_date__lte=timezone.now()).order_by('id')
+    return render(request, 'blog/tests_list.html', {'tests' : tests})
 
-    return render(request, 'blog/post_list.html', {'posts' : posts,
-                                                    'tags' : tags})
 
 
-def post_detail(request, pk):
+
+def test_detail(request, pk):
     post = get_object_or_404(NewTestCase, pk=pk)
     tags = TestCaseTag.objects.filter(test_case_id=pk)
     steps = Steps.objects.filter(test_case_id=pk).order_by()
     #loging(steps)
-    return render(request, 'blog/post_detail.html', {
+    return render(request, 'blog/test_detail.html', {
                             'post' : post,
                             'tags' : tags,
                             'steps' : steps,
@@ -87,7 +88,7 @@ def new_test_case(request):
         test_case.save()
         tags = request.POST.getlist('tags')[0].replace(' ', '')
         tags = tags.split(',')
-        loging(tags)
+        #loging(tags)
         if len(tags) >0:
             for tag in tags:
                 TestCaseTag.objects.create(test_case=test_case, tag=tag)
@@ -101,13 +102,13 @@ def new_test_case(request):
                                 test_case=test_case,
                                 step=step,
                                 result=result)
-        return redirect('post_detail', pk=test_case.pk)
+        return redirect('test_detail', pk=test_case.pk)
     else:
         form = TestCaseForm()
-    return render(request, 'blog/post_new.html', {'form' : form})
+    return render(request, 'blog/test_new.html', {'form' : form})
 
 
-def post_edit(request, pk):
+def test_edit(request, pk):
     test_case = get_object_or_404(NewTestCase, pk=pk)
     tags = TestCaseTag.objects.filter(test_case_id=pk)
     steps = Steps.objects.filter(test_case_id=pk).order_by()
@@ -172,42 +173,13 @@ def post_edit(request, pk):
     return render(request, 'blog/post_edit.html', {'form': form, 'tags' : tags, 'steps' : steps})  
    
 
-def post_delete(request, pk):
+def test_delete(request, pk):
     post = get_object_or_404(NewTestCase, pk=pk)  
     post.delete()
     posts = NewTestCase.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return redirect('post_list')
 
 
-def tests_search(request):
-    loging(request)
-    # loging(request.POST)
-    # loging(request.GET)
-    # loging('123')
-    #return redirect('post_detail')
-    #pass
-    #return render(request, 'blog/post_list.html', {'posts' : posts})
-
-
-
-def test(request):
-    template_name = 'blog/test_page.html'
-    tc_form = TestCase()
-    if request.method == 'POST':
-        case = Case.objects.create(title=request.POST['title'])
-        st1 = Steps.objects.create(test_case=case,
-                                    step=request.POST['Step'],
-                                    result=request.POST['Result'],
-                                    author=request.user) 
-    return render(
-            request, template_name, {
-                'tc_form': tc_form,
-                })
-
-def tests_list(request):
-    template_name = 'blog/tests_list.html'
-    tests = Case.objects.all()
-    return render(request, template_name, {'tests': tests})
 
 
 

@@ -3,8 +3,9 @@ from django.utils import timezone
 
 
 
-class TestCaseTag(models.Model):
+class Tag(models.Model):
     tag = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000)
     #test_case = models.ForeignKey(NewTestCase, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -17,31 +18,11 @@ class TestCaseTag(models.Model):
 class NewTestCase(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    text = models.TextField()
-    #tags = models.CharField(max_length=200)
-    tags = models.ForeignKey(TestCaseTag, on_delete=models.CASCADE)
-    goals = models.TextField()
-    requirements = models.TextField()
-    TEST_CASE_STAGES = [
-        ('Design', 'Design'),
-        ('Ready', 'Ready'),
-        ('Delete', 'Delete'),
-        ('FixIt', 'FixIt'),
-    ]
-    stage = models.CharField(
-        max_length=6,
-        choices=TEST_CASE_STAGES,
-        default='Design',
-    )
-    pre_conditions = models.TextField()
-    variants = models.TextField()
-    #steps = models.TextField()
+    tag = models.ManyToManyField(Tag, help_text="Select a tags for this test-case")
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
             blank=True, null=True)
-    #step_name = models.CharField(max_length=255)
-    isbn_number = models.CharField(max_length=13)
 
 
     def publish(self):
@@ -104,13 +85,3 @@ class Steps(models.Model):
 
 
 
-
-
-
-'''
-case1 = Case.objects.create(title="Андрей")  # создали пользователя
-st1 = Steps.objects.create(user=case1, step="шаг 1", res="result 1")  # создали пару сообщений
-st2 = Steps.objects.create(user=case1, step="шаг 2", res="result 2")  # создали пару сообщений
-# таким способом можно находить все сообщения данного пользователя
-messages = Message.objects.filter(user=user1)
-'''
