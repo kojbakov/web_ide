@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<body>
+    <form method="POST" class="post-form">{% csrf_token %}
+        <button type="submit" class="save btn btn-default">Save</button>
+        <h1>New test-case</h1>
+        {{form}}
+        <div id="new_chq"></div>
+        <input type="hidden" value="0" id="total_chq">
+    </form>
+  <br>
+  <button class="save btn btn-default" onclick="add()">Add step</button>
+</body>
+</html>
+{% endblock %}

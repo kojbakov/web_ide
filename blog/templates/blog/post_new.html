@@ -1,14 +1,33 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-    <form method="POST" class="post-form">{% csrf_token %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New test-case</title>
+</head>
+<body>
+    <form method="POST" class="post-form">
+    	{% csrf_token %}
         <button type="submit" class="save btn btn-default">Save</button>
         <h1>New test-case</h1>
-        {{form}}
-        <div id="new_chq"></div>
-        <input type="hidden" value="0" id="total_chq">
+        <hr>
+        {{ form.as_p }}
+        <hr>
+        <input type="" placeholder="tags" name="tags">
+        <br>
+	    <TABLE label for="sr" id="dataTable" width="100%" border="0" class="steps_results" style="display: none;">
+	        <tr>
+	            <th scope=«col» style="width: 50px;"></th>
+	            <th scope=«col»>Steps</th>
+	            <th scope=«col»>Results</th>
+	        </tr>
+	    </TABLE>
     </form>
-  <br>
-  <button class="save btn btn-default" onclick="add()">Add step</button>
+  <hr>
+  <button type="button" class="btn btn-info" onclick="addRow('dataTable')">Add step</button>
+  <button type="button" class="btn btn-danger" onclick="deleteRow('dataTable')">Delete</button>
+  <!-- <button type="button" class="btn btn-info" onclick="hide_show_table('dataTable')">Hide table</button> -->
+
 </body>
 </html>
 {% endblock %}

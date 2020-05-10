@@ -42,7 +42,7 @@ class TestCaseForm(forms.ModelForm):
         model = NewTestCase
         # fields = ('title', 'goals', 'tags', 'requirements', 'stage', 'pre_conditions', 'variants', 'steps',)
         # fields = ('title', 'requirements', 'tags', 'stage', 'goals', 'pre_conditions', 'step_name')
-        fields = ('title', 'tags')
+        fields = ('title',)
         #ArticleFormSet = formset_factory(ArticleForm, extra=0)
 
 class StepsForm(forms.ModelForm):    

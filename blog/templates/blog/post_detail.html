@@ -8,11 +8,15 @@
         {% endif %}
         {% if user.is_authenticated %}
             <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-            <a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
-
+            <a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}" onclick="return confirm('Удалить тест-кейс {{post.pk}}?');"><span class="glyphicon glyphicon-trash"></span></a>
         {% endif %}
         <h1>{{ post.title }}</h1>
-        <table border="1" width="100%" cellpadding="20">
+        <div class="tags">
+            {% for tag in tags %}               
+                <a >{{ tag }}</a>
+            {% endfor %}
+        </div>
+        <table border="1" width="100%" cellpadding="20" class="steps_results">
         <tr>
             <th> Steps </th>
             <th> Results </th>  

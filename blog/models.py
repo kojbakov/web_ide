@@ -77,8 +77,9 @@ class Case(models.Model):
         return "%s %s" % (self.title, self.tags)
 
 class Steps(models.Model):
-    step = models.CharField(max_length=100)
-    result = models.CharField(max_length=100)
+
+    step = models.CharField(max_length=1000)
+    result = models.CharField(max_length=1000)
     test_case = models.ForeignKey(NewTestCase, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -86,6 +87,20 @@ class Steps(models.Model):
 
     class Meta:
         ordering = ['step','result']
+
+class TestCaseTag(models.Model):
+    tag = models.CharField(max_length=1000)
+    test_case = models.ForeignKey(NewTestCase, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.tag
+
+    class Meta:
+        ordering = ['tag']
+
+
+
+
 
 '''
 case1 = Case.objects.create(title="Андрей")  # создали пользователя
