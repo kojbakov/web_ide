@@ -32,6 +32,11 @@ h1, h2, h3, h4 {
     float: right;
 
 }
+.post-form button{
+    float: right;
+    margin-right: 5;
+    
+    }
 
 .top-menu, .top-menu:hover, .top-menu:visited {
     color: #ffffff;
@@ -67,7 +72,7 @@ a {
   color: black;
 }
 .buttons_panel {
-    float: right;
+    float: left;
 }
 
 .inp_class input{

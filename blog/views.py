@@ -34,7 +34,7 @@ import operator
 def post_list(request):
     #loging('o')
     #loging(request.POST)
-    loging(request)
+    #loging(request)
     if request.method == "POST" :
         #loging(request.POST)
         if len(request.POST['tags'])>0:
@@ -87,9 +87,10 @@ def new_test_case(request):
         test_case.save()
         tags = request.POST.getlist('tags')[0].replace(' ', '')
         tags = tags.split(',')
-        #loging(tags)
-        for tag in tags:
-            TestCaseTag.objects.create(test_case=test_case, tag=tag)
+        loging(tags)
+        if len(tags) >0:
+            for tag in tags:
+                TestCaseTag.objects.create(test_case=test_case, tag=tag)
         new_steps_list = request.POST.getlist('step_new')
         new_results_list = request.POST.getlist('result_new')
         # сохранение новых записей о шагах

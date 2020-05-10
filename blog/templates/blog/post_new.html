@@ -8,14 +8,21 @@
 <body>
     <form method="POST" class="post-form">
     	{% csrf_token %}
-        <button type="submit" class="save btn btn-default">Save</button>
+  
         <h1>New test-case</h1>
+        <hr>
+        <a href="/" class="save btn btn-danger" onclick="return confirm('Несохранённые изменения будут удалены. Продолжить?');">Cancel</a>
+        <button type="submit" class="save btn btn-success">Save</button>
+        <br>
         <hr>
         {{ form.as_p }}
         <hr>
-        <input type="" placeholder="tags" name="tags">
+        <h5>Tags:</h5>
+        <input name="tags">
         <br>
-	    <TABLE label for="sr" id="dataTable" width="100%" border="0" class="steps_results" style="display: none;">
+        <br>
+
+	      <TABLE label for="sr" id="dataTable" width="100%" border="0" class="steps_results" style="display: none;">
 	        <tr>
 	            <th scope=«col» style="width: 50px;"></th>
 	            <th scope=«col»>Steps</th>
@@ -23,9 +30,10 @@
 	        </tr>
 	    </TABLE>
     </form>
-  <hr>
+  <br>
   <button type="button" class="btn btn-info" onclick="addRow('dataTable')">Add step</button>
-  <button type="button" class="btn btn-danger" onclick="deleteRow('dataTable')">Delete</button>
+  <button type="button" class="btn btn-warning" onclick="deleteRow('dataTable')">Delete step</button>
+  <hr>
   <!-- <button type="button" class="btn btn-info" onclick="hide_show_table('dataTable')">Hide table</button> -->
 
 </body>

@@ -9,8 +9,7 @@
         	</a>
             <div class="tags">
                 {% for tag in tags %}   
-                    {% if tag.test_case.pk == post.pk %} 
-                    
+                    {% if tag.test_case.pk == post.pk %}
                     <form action="/" method="post">
                         {% csrf_token %}
                         <div class="tags">
