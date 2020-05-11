@@ -1,34 +1,9 @@
-from django.shortcuts import render
 from django.utils import timezone
-from .models import NewTestCase
-from django.shortcuts import render, get_object_or_404, render_to_response
+from .models import NewTestCase, Steps, Tag
 from .forms import TestCaseForm
-#from .forms import BookModelFormset as TestCaseForm
-from django.shortcuts import redirect
-from django.forms import formset_factory
+from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 from django.contrib.auth.models import User
-from django.forms import modelform_factory
-#from .forms import MyForm
-#from .models import MyModel
-# from .forms import BookFormset
-#from .forms import StepFormset
-
-#from .models import NewTestCase
-from django.shortcuts import render, redirect
-from .forms import StepsForm
-#from .forms import StepsResultsFormset
-from .models import StepsResults
-from .models import Case
-from .models import Steps
-from .forms import TestCase
-from .models import Tag 
 import re
-#___
-from django.db.models.functions import Lower
-from django.http import JsonResponse
-from functools import reduce
-from django.db.models import Q
-import operator
 
 
 def tests_list(request):
@@ -52,18 +27,19 @@ def tests_list(request):
     # return render(request, 'blog/test_list.html', {'posts' : posts,
     #                                                 'tags' : tags})
     tests = NewTestCase.objects.filter(published_date__lte=timezone.now()).order_by('id')
-    return render(request, 'blog/tests_list.html', {'tests' : tests})
+    tags = Tag.objects.all()
+    return render(request, 'blog/tests_list.html', {'tests' : tests, 'tags' : tags})
 
 
 
 
 def test_detail(request, pk):
-    post = get_object_or_404(NewTestCase, pk=pk)
-    tags = TestCaseTag.objects.filter(test_case_id=pk)
+    test = get_object_or_404(NewTestCase, pk=pk)
+    tags = Tag.objects.filter(tags__id=pk)
     steps = Steps.objects.filter(test_case_id=pk).order_by()
     #loging(steps)
     return render(request, 'blog/test_detail.html', {
-                            'post' : post,
+                            'test' : test,
                             'tags' : tags,
                             'steps' : steps,
                             })
@@ -86,12 +62,7 @@ def new_test_case(request):
         test_case.author = request.user
         test_case.published_date = timezone.now()
         test_case.save()
-        tags = request.POST.getlist('tags')[0].replace(' ', '')
-        tags = tags.split(',')
-        #loging(tags)
-        if len(tags) >0:
-            for tag in tags:
-                TestCaseTag.objects.create(test_case=test_case, tag=tag)
+        test_case.tag.set(form.cleaned_data['tag'])
         new_steps_list = request.POST.getlist('step_new')
         new_results_list = request.POST.getlist('result_new')
         # сохранение новых записей о шагах
@@ -174,10 +145,10 @@ def test_edit(request, pk):
    
 
 def test_delete(request, pk):
-    post = get_object_or_404(NewTestCase, pk=pk)  
-    post.delete()
-    posts = NewTestCase.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return redirect('post_list')
+    test = get_object_or_404(NewTestCase, pk=pk)  
+    test.delete()
+    tests = NewTestCase.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return redirect('tests_list')
 
 
 

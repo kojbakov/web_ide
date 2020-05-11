@@ -5,7 +5,7 @@ from django.utils import timezone
 
 class Tag(models.Model):
     tag = models.CharField(max_length=1000)
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000, blank=True)
     #test_case = models.ForeignKey(NewTestCase, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -18,7 +18,9 @@ class Tag(models.Model):
 class NewTestCase(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    tag = models.ManyToManyField(Tag, help_text="Select a tags for this test-case")
+    tag = models.ManyToManyField(Tag, related_name='tags',
+                                 help_text="Select a tags for this test-case",
+                                 blank=True)
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
@@ -28,47 +30,9 @@ class NewTestCase(models.Model):
     def publish(self):
         self.published_date = timezone.now()
         self.save()
-    
-class MyModel(models.Model):
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    extra_fields = models.CharField(max_length=200)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-        
-
-class Book(models.Model):
-
-    name = models.CharField(max_length=255)
-    isbn_number = models.CharField(max_length=13)
-
-    class Meta:
-        db_table = 'book'
 
     def __str__(self):
-        return self.name
-
-
-class StepsResults(models.Model):
-    # это поле необходимо для связи с таблицей пользователя
-    #user = models.ForeignKey('auth.User', on_delete=models.CASCADE) 
-    # текст сообщения пользователя.
-    test_case = models.ForeignKey(NewTestCase, on_delete=models.CASCADE)
-    step = models.CharField(max_length=1000)
-    result = models.CharField(max_length=1000)
-    #chain_test_id = models.CharField(max_length=1000)
-
-
-class Case(models.Model):
-    title = models.CharField(max_length=30)
-    tags = models.CharField(max_length=30)
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-
-
-    def __str__(self):
-        return "%s %s" % (self.title, self.tags)
+        return self.title
 
 class Steps(models.Model):
 

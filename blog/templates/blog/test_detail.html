@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <div class="post">
+        {% if test.published_date %}
+            <div class="date">
+                {{ test.published_date }}
+            </div>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'test_edit' pk=test.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-default" href="{% url 'test_delete' pk=test.pk %}" onclick="return confirm('Удалить тест-кейс {{test.pk}}?');"><span class="glyphicon glyphicon-trash"></span></a>
+        {% endif %}
+        <h1>{{ test.title }}</h1>
+        <div class="tags">
+            {% for tag in tags %}               
+                <button class="btn-link">{{ tag }}</button>
+            {% endfor %}
+        </div>
+        <table border="1" width="100%" cellpadding="20" class="steps_results">
+        <tr>
+            <th> Steps </th>
+            <th> Results </th>  
+        </tr>
+        {% for item in steps %}
+           <tr>
+            <td>{{ item.step }}</td>
+            <td>{{ item.result }}</td>
+           </tr>
+        {% endfor %}
+    </div>
+{% endblock %}

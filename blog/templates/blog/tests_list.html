@@ -6,18 +6,15 @@
         	<p>
         	<a href="{% url 'test_detail' pk=test.pk %}">
         	[Test-case-{{ test.pk }}] | {{ test.author }} | <h3>{{ test.title }}</h3>
-        	</a>
+            </a>        	
             <div class="tags">
-                {% for tag in tags %}   
-                    {% if tag.test_case.pk == test.pk %}
-                    <form action="/" method="test">
-                        {% csrf_token %}
-                        <div class="tags">
-                            <button type="submit" name="tags" value="{{tag}}" class="btn-link">{{tag}}</button>
-                        </div>
-                    </form>       
-                        
-                    {% endif %}
+                {% for tag in test.tag.all %}
+                <form action="/" method="test">
+                    {% csrf_token %}
+                    <div class="tags">
+                        <button type="submit" name="tags" value="{{tag}}" class="btn-link">{{tag}}</button>
+                    </div>
+                </form>
                 {% endfor %}
             </div>
             <br>
