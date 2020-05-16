@@ -1,26 +1,36 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% block content %}
-    {% for test in tests %}
-        <div class="test"> 
-        	<p>
-        	<a href="{% url 'test_detail' pk=test.pk %}">
-        	[Test-case-{{ test.pk }}] | {{ test.author }} | <h3>{{ test.title }}</h3>
-            </a>        	
-            <div class="tags">
-                {% for tag in test.tag.all %}
-                <form action="/" method="test">
-                    {% csrf_token %}
-                    <div class="tags">
-                        <button type="submit" name="tags" value="{{tag}}" class="btn-link">{{tag}}</button>
-                    </div>
-                </form>
-                {% endfor %}
-            </div>
-            <br>
-            <br>
-        	<a class="btn btn-default" href="{% url 'test_delete' pk=test.pk %}" onclick="return confirm('Удалить тест-кейс {{test.pk}}?');"><span class="glyphicon glyphicon-trash"></span></a>
-        	<hr>
-       </div>
-    {% endfor %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tests list</title>
+</head>
+<body>
+    <TABLE width="100%" border="0" class="tests_list">
+        <tr>
+            <th scope=«col»>Test-case number</th>
+            <th scope=«col»>Test-case author</th>
+            <th scope=«col»>Test-case title</th>
+            <th scope=«col»>Test-case tags</th>
+            <th scope=«col»>Test-case delete</th>
+        </tr>
+        {% for test in tests %}
+            <tr>
+                <td><a href="{% url 'test_detail' pk=test.pk %}">
+                {{ test.pk }}</a> </td>
+                <td>{{ test.author }}</td>
+                <td><a href="{% url 'test_detail' pk=test.pk %}">
+                {{ test.title }}</a> </td>
+                <td>
+                    {% for tag in test.tag.all %}
+                        <button type="button" class="btn btn-warning" name="tags">{{tag}}</button>
+                    {% endfor %}
+                </td>
+                <td><a class="btn btn-default" href="{% url 'test_delete' pk=test.pk %}" onclick="return confirm('Удалить тест-кейс {{test.pk}}?');"><span class="glyphicon glyphicon-trash"></span></a></td>
+            </tr>
+        {% endfor %}
+    </TABLE>
 {% endblock %}§
+</body>
+</html>

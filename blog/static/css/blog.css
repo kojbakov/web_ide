@@ -161,6 +161,33 @@ a {
     border-radius: 0 0 6px 0;
 }*/
 
+.tests_list {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  table-layout: fixed;
+  width: 100%;
+}
+.tests_list tr{
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+.tests_list th,
+.tests_list td {
+  padding: .625em;
+  text-align: center;
+  word-break: break-all;
+}
+
+.tests_list{
+   .col1 {
+        width: 100px; /* Ширина ячейки */
+    }
+}
+
 .steps_results {
   border: 1px solid #ccc;
   border-collapse: collapse;
@@ -178,12 +205,14 @@ a {
 .steps_results td {
   padding: .625em;
   text-align: center;
+  word-break: break-all;
 }
 .steps_results{
    .col1 {
         width: 100px; /* Ширина ячейки */
     }
 }
+
 
 .tags button {    
     display: inline-block;
@@ -213,7 +242,7 @@ a {
     content: "";
     position: absolute;
     top:-2;
-    left: -14px;
+    left: -12px;
     width: 0;
     height: 0;
     border-color: transparent #3243A5 transparent transparent;

@@ -28,17 +28,11 @@
                 <a href="/admin/" class="btn btn-default">Admin page</a>
                 <br>
                 <br>
-
-                <form method="POST">
+<!--                 <form method="POST">
                     {% csrf_token %}
                     <input type="input" placeholder="tags" name="tags">
                     <button type="submit" class="btn btn-warning" >Search</button>
-                </form>
-
-                <!-- <a href="/create_normal/" class="btn btn-default">Example page</a>
-                <a href="/book_list" class="btn btn-default">Book list</a>
-                <a href="/test_page/" class="btn btn-default">Test page</a>
-                <a href="/tests_list/" class="btn btn-default">Test lists</a> -->
+                </form> -->
             {% elif user.is_authenticated == False %}
                 <a href="/admin" class="btn btn-default">Login</a>
             {% endif %}

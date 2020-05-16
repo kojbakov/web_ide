@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit test-case</title>
+</head>
+<body onload="hideEmptySteps('dataTable')">
+<h1>Edit test-case</h1>
+	<form method="POST" class="post-form">
+		<a href="javascript:history.back()" class="save btn btn-danger" onclick="return confirm('Несохранённые изменения будут удалены. Продолжить?');">Cancel</a>
+		<button type="submit" class="btn btn-success" style="float: right;">Save</button>
+		<hr>
+		{% csrf_token %}
+	    {{ form.as_p }}
+	    <hr>
+		<br>
+	    <TABLE id="dataTable" width="100%" border="0" class="steps_results">
+	        <tr>
+	            <th scope=«col» style="width: 50px;"></th>
+	            <th scope=«col»>Steps</th>
+	            <th scope=«col»>Results</th>
+	        </tr>
+	    {% for item in steps %}
+	        <TR>
+	            <TD><INPUT type="checkbox" name="chk"/></TD>
+				<td><textarea name='step_{{ item.pk }}' cols='10' rows='1' required id='id_step'>{{ item.step }}</textarea></td>
+	        	<td><textarea name='result_{{ item.pk }}' cols='10' rows='1' required id='id_result_{{ item.pk }}'>{{ item.result }}</textarea></td>
+	        </TR>
+	    {% endfor %}
+		</table>
+	</form>
+<br>
+<button type="button" class="btn btn-info" onclick="addRow('dataTable')">Add step</button>
+<button type="button" class="btn btn-danger" onclick="deleteRow('dataTable')">Delete</button>
+
+{% endblock %}
+</body>
+</html>
