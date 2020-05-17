@@ -6,7 +6,27 @@ from django.utils import timezone
 class Tag(models.Model):
     tag = models.CharField(max_length=1000)
     description = models.CharField(max_length=1000, blank=True)
-    #test_case = models.ForeignKey(NewTestCase, on_delete=models.CASCADE)
+
+    default = 'btn btn-default'
+    dark_blue = 'btn btn-primary'
+    green = 'btn btn-success'
+    blue = 'btn btn-info'
+    orange = 'btn btn-warning'
+    red = 'btn btn-danger'
+    TAG_STYLES = [
+        (default, 'default (gray)'),
+        (dark_blue, 'dark blue'),
+        (green, 'green'),
+        (blue, 'blue'),
+        (orange, 'orange'),
+        (red, 'red'),
+    ]
+    tag_style = models.CharField(
+        max_length = 20,
+        choices=TAG_STYLES,
+        default=default,
+    )
+    #style = models.CharField(max_length=1000, blank=True)
 
     def __str__(self):
         return self.tag

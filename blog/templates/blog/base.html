@@ -28,13 +28,11 @@
                 <a href="/admin/" class="btn btn-default">Admin page</a>
                 <br>
                 <br>
-<!--                 <form method="POST">
-                    {% csrf_token %}
-                    <input type="input" placeholder="tags" name="tags">
-                    <button type="submit" class="btn btn-warning" >Search</button>
-                </form> -->
             {% elif user.is_authenticated == False %}
                 <a href="/admin" class="btn btn-default">Login</a>
+            {% else %}
+                <br>
+                <br>
             {% endif %}
         </div>
             {% if user.is_authenticated %}

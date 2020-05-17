@@ -7,27 +7,33 @@
     <title>Tests list</title>
 </head>
 <body>
-    <TABLE width="100%" border="0" class="tests_list">
-        <tr>
-            <th scope=«col»>Test-case number</th>
-            <th scope=«col»>Test-case author</th>
-            <th scope=«col»>Test-case title</th>
-            <th scope=«col»>Test-case tags</th>
-            <th scope=«col»>Test-case delete</th>
-        </tr>
+    <TABLE width="100%" border="0" class="tests_list" id="tests_list">
         {% for test in tests %}
             <tr>
-                <td><a href="{% url 'test_detail' pk=test.pk %}">
-                {{ test.pk }}</a> </td>
-                <td>{{ test.author }}</td>
-                <td><a href="{% url 'test_detail' pk=test.pk %}">
-                {{ test.title }}</a> </td>
-                <td>
-                    {% for tag in test.tag.all %}
-                        <button type="button" class="btn btn-warning" name="tags">{{tag}}</button>
-                    {% endfor %}
+                <td align="left"><a href="{% url 'test_detail' pk=test.pk %}" ">
+                    {{ test.title }}</a> 
+                <br>
+                <p>#{{ test.pk }} created by {{ test.author }} {{test.created_date}} </br>
+                last change by {{ test.author }} {{test.published_date}}</p>
                 </td>
-                <td><a class="btn btn-default" href="{% url 'test_delete' pk=test.pk %}" onclick="return confirm('Удалить тест-кейс {{test.pk}}?');"><span class="glyphicon glyphicon-trash"></span></a></td>
+                <td>
+                    <!-- <div  class="ribbon"> -->
+                    {% for tag in test.tag.all %}
+                              <!-- <script>
+                              var array = ["btn btn-default","btn btn-primary", "btn btn-success","btn btn-info","btn btn-warning","btn btn-danger"]
+                              var style = array[Math.floor(Math.random() * 6)]
+                              var table = document.getElementById("tests_list")
+                              butt = document.createElement("button");
+                              butt.className = style;
+                              butt.innerHTML = "{{tag}}";
+                              table.appendChild(butt);
+                              </script> -->
+                            <button type="button" class="{{tag.tag_style}}" ">{{tag}}</button> 
+<!--                         <button type="button" class="btn btn-warning" name="tags">{{tag}}</button>
+ -->                    {% endfor %}
+                    <!-- </div> -->
+                </td>
+                <td style="text-align: right;"><a class="btn btn-default" href="{% url 'test_delete' pk=test.pk %}" onclick="return confirm('Удалить тест-кейс {{test.pk}}?');"><span class="glyphicon glyphicon-trash"></span></a></td>
             </tr>
         {% endfor %}
     </TABLE>

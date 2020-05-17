@@ -96,7 +96,7 @@ def test_edit(request, pk):
             for item in request.POST:
                 if item not in ['csrfmiddlewaretoken', 'title', 'tag', 'step_new', 'result_new']:
                     if 'result_' not in item:
-                        loging(item)
+                        #loging(item)
                         pk_post_list.append(re.findall(r'step_(\d+)', item)[0])
             exist_pk = [str(step.pk) for step in steps]
             pk_for_delete = list(set(exist_pk) - set(pk_post_list))

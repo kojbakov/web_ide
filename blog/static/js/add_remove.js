@@ -98,5 +98,11 @@ function hideEmptySteps(tableID){
     }catch(e) {
         alert(e);
     }
+}
 
+function generateRandomStyle(){
+    var random = Math.floor(Math.random() * 6);
+    var array = ["btn-default","btn-primary", "btn-success","btn-info","btn-warning","btn-danger"]
+    return array[random]
+    
 }
